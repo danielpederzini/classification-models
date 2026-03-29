@@ -157,3 +157,22 @@ class TitanicDataHelper():
 
         plt.tight_layout()
         plt.show()
+        
+class MoonsDataHelper():
+    def load_dataset():
+        moons_data = pd.read_csv("./input/moons.csv")
+        x_train, x_test, y_train, y_test = split_train_test(moons_data.drop("Class_1", axis=1), moons_data["Class_1"])
+        return x_train, x_test, y_train, y_test
+    
+    def plot_moons(x, y):
+        x_array = x.values
+        y_array = y.values
+        
+        plt.figure(figsize=(10, 6))
+        plt.scatter(x_array[y_array==0, 0], x_array[y_array==0, 1], label='Class 0', alpha=0.6)
+        plt.scatter(x_array[y_array==1, 0], x_array[y_array==1, 1], label='Class 1', alpha=0.6)
+        plt.xlabel('Feature 1')
+        plt.ylabel('Feature 2')
+        plt.legend()
+        plt.title('Moon Dataset')
+        plt.show()
