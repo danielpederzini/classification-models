@@ -82,6 +82,11 @@ class CancerDataHelper():
 class TitanicDataHelper():
     def load_dataset(one_hot=True, normalize=True):
         titanic_data = pd.read_csv("./input/titanic_survival.csv")
+
+        titles = titanic_data["Name"].str.extract(r",\s*([^\.]+)\.")[0].str.strip()
+        titanic_data["UncommonTitle"] = titles.isin(["Sir", "Lady", "the Countess", "Don", "Dona", "Jonkheer", "Capt", "Col", "Major", "Rev", "Dr"]).astype(int)
+        titanic_data["YoungTitle"] = titles.isin(["Master", "Miss"]).astype(int)
+        
         titanic_data = titanic_data.drop(columns=["Name", "PassengerId", "Ticket", "Cabin"])
 
         age_median = titanic_data["Age"].median()
